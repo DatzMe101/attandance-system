@@ -7,7 +7,9 @@ const validate = data => {
   const schema = {
     username: Joi.string().required(),
     password: Joi.string().required(),
-    isAdmin: Joi.boolean().required()
+    isAdmin: Joi.boolean()
+      .allow('')
+      .optional()
   };
   return Joi.validate(data, schema);
 };
@@ -25,7 +27,7 @@ const mapper = data => {
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
-  isAdmin: { type: Boolean, required: true }
+  isAdmin: { type: Boolean }
 });
 
 userSchema.methods.generateAuthToken = function() {
