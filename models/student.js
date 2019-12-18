@@ -14,12 +14,22 @@ const validate = data => {
       .optional(),
     gender: Joi.string()
       .allow('')
-      .optional(),
-    gender: Joi.string()
-      .allow('')
       .optional()
   };
   return Joi.validate(data, schema);
+};
+
+const mapper = data => {
+  return (
+    data && {
+      studentId: data.studentId,
+      name: data.name,
+      userId: data.userId,
+      course: data.course,
+      year: data.year,
+      gender: data.gender
+    }
+  );
 };
 
 const Student = mongoose.model('Student', {
@@ -31,4 +41,4 @@ const Student = mongoose.model('Student', {
   gender: String
 });
 
-module.exports = { validate, Student };
+module.exports = { Student, validate, mapper };
